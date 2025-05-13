@@ -6,20 +6,37 @@
     <Field
       name="websiteUrl"
       rules="required|URL"
-      v-model="website"
+      v-model="formData.website"
       v-slot="{ handleChange, errorMessage }"
     >
       <div class="flex flex-col gap-4">
         <label class="font-bold" for="">Website URL</label>
         <o-input
-          class="myInput"
-          :value="website"
+          :value="formData.website"
           @update:modelValue="handleChange"
           type="text"
           data-testid="website"
         />
-        <!-- <input v-model="website" type="text" data-testid="website" /> -->
         <span class="text-red-500" data-testid="website-error">{{
+          errorMessage
+        }}</span>
+      </div>
+    </Field>
+    <Field
+      name="organizationName"
+      rules="required"
+      v-model="formData.organizationName"
+      v-slot="{ handleChange, errorMessage }"
+    >
+      <div class="flex flex-col gap-4">
+        <label class="font-bold" for="">Organization Name</label>
+        <o-input
+          :value="formData.organizationName"
+          @update:modelValue="handleChange"
+          type="text"
+          data-testid="organization-name"
+        />
+        <span class="text-red-500" data-testid="organization-name-error">{{
           errorMessage
         }}</span>
       </div>
@@ -44,5 +61,11 @@ defineRule("URL", (value: string) => {
     : "Please enter a valid URL (e.g., http://www.example.com).";
 });
 
-const website: Ref<string> = ref("");
+const formData: Ref<{
+  organizationName: string;
+  website: string;
+}> = ref({
+  organizationName: "",
+  website: "",
+});
 </script>
